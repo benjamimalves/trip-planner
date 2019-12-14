@@ -34,12 +34,15 @@ function Main() {
             placeholder="Departure from.."
             id="departure"
           />
-          <Address
-            info={state}
-            dispatch={dispatch}
-            placeholder="Final destination.."
-            id="destination"
-          />
+          <div className="main-elements-widget">
+            <Address
+              info={state}
+              dispatch={dispatch}
+              placeholder="Final destination.."
+              id="destination"
+              className="second-type"
+            />
+          </div>
         </div>
         <MapContainer dispatch={dispatch} />
       </MainContext.Provider>

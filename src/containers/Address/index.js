@@ -100,7 +100,7 @@ class Address extends React.PureComponent {
   };
 
   render() {
-    const { id, placeholder } = this.props;
+    const { id, placeholder, className } = this.props;
 
     return (
       <AddressWrapper>
@@ -108,6 +108,7 @@ class Address extends React.PureComponent {
           placeholder={placeholder}
           id={id}
           onKeyUp={this.getAddressSugestions}
+          className={className}
           // value={address ? `${address.header} - ${address.address}` : ''}
         />
         {this.renderAutoComplete()}
@@ -119,6 +120,7 @@ class Address extends React.PureComponent {
 Address.propTypes = {
   id: PropTypes.string,
   placeholder: PropTypes.string,
+  className: PropTypes.string,
   dispatch: PropTypes.func,
   info: PropTypes.oneOfType([PropTypes.object])
 };
@@ -126,6 +128,7 @@ Address.propTypes = {
 Address.defaultProps = {
   id: '',
   placeholder: '',
+  className: '',
   dispatch: () => {},
   info: {}
 };

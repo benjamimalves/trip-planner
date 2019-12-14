@@ -18,6 +18,17 @@ const Label = styled.label`
     position: absolute;
     margin-left: calc(50% - 5px);
   }
+
+  &.second-type {
+    &:after {
+      display: none;
+    }
+
+    input {
+      box-shadow: none;
+      border: 1px solid ${COLORS.GRAY};
+    }
+  }
 `;
 
 export default Label;

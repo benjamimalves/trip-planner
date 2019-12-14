@@ -6,10 +6,10 @@ import Input from './elements/Input';
 import Label from './elements/Label';
 
 function InputField(props) {
-  const { placeholder, id, onKeyUp, value } = props;
+  const { placeholder, id, onKeyUp, className, value } = props;
 
   return (
-    <Label htmlFor={id}>
+    <Label htmlFor={id} className={className}>
       <Input
         id={id}
         placeholder={placeholder}
@@ -24,6 +24,7 @@ InputField.propTypes = {
   id: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.string,
+  className: PropTypes.string,
   onKeyUp: PropTypes.func
 };
 
@@ -31,6 +32,7 @@ InputField.defaultProps = {
   id: '',
   placeholder: '',
   value: '',
+  className: '',
   onKeyUp: false
 };
 
