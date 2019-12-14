@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { GoogleApiWrapper, Map, Polyline } from 'google-maps-react';
 
 // Context API
-import MainContext from '../Main/context';
+import AppContext from '../../reducer/context';
 
 // Styled Elements
 import MapWrapper from './elements/MapWrapper';
@@ -69,7 +69,7 @@ export class MapContainer extends React.Component {
   }
 }
 
-MapContainer.contextType = MainContext;
+MapContainer.contextType = AppContext;
 
 MapContainer.propTypes = {
   google: PropTypes.oneOfType([PropTypes.object]),

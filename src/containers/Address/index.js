@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 // Util
 import { ENDPOINTS } from '../../utils/api';
 
+// Context API
+import AppContext from '../../reducer/context';
+
 // Reducer
-import { ADD_DEPARTURE, ADD_DESTINATION } from '../Main/constants';
+import { ADD_DEPARTURE, ADD_DESTINATION } from '../../reducer/constants';
 
 // Global Components
 import ButtonField from '../../components/ButtonField';
@@ -55,7 +58,8 @@ class Address extends React.PureComponent {
   };
 
   addAddress = address => {
-    const { dispatch, id } = this.props;
+    const { id } = this.props;
+    const { dispatch } = this.context;
 
     this.setState({
       suggest: []
@@ -117,20 +121,18 @@ class Address extends React.PureComponent {
   }
 }
 
+Address.contextType = AppContext;
+
 Address.propTypes = {
   id: PropTypes.string,
   placeholder: PropTypes.string,
-  className: PropTypes.string,
-  dispatch: PropTypes.func,
-  info: PropTypes.oneOfType([PropTypes.object])
+  className: PropTypes.string
 };
 
 Address.defaultProps = {
   id: '',
   placeholder: '',
-  className: '',
-  dispatch: () => {},
-  info: {}
+  className: ''
 };
 
 export default Address;

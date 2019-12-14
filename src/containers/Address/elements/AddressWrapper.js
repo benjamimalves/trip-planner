@@ -12,6 +12,7 @@ const AddressWrapper = styled.div`
     background-color: ${COLORS.WHITE};
     box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.4);
     border-radius: 19px;
+    z-index: 9;
 
     li {
       list-style-type: none;
