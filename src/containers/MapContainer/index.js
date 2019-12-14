@@ -26,7 +26,7 @@ export class MapContainer extends React.Component {
     const { paths } = this.state;
 
     if (planner !== false && paths.length === 0) {
-      if (planner.length === 0) {
+      if (planner !== undefined && planner.length === 0) {
         this.noRouteForPlanner();
       } else {
         this.getCoords(planner);
@@ -43,18 +43,7 @@ export class MapContainer extends React.Component {
 
     const paths = [];
 
-    // Get the Best ETA VALUE
-    const bestETA = data.reduce(
-      (min, p) =>
-        parseInt(p.leg.duration, 10) < min ? parseInt(p.leg.duration, 10) : min,
-      data[0].leg.duration
-    );
-
-    // Get the Best ETA DATA
-    const getBestETA = data.filter(p => p.leg.duration === bestETA);
-
-    // Get the paths for the BestETA
-    getBestETA[0].leg.bigSteps.forEach(p => {
+    data.leg.bigSteps.forEach(p => {
       p.points.forEach(point => {
         paths.push(point);
       });
