@@ -7,7 +7,7 @@ import { ENDPOINTS } from '../../utils/api';
 // Context API
 import AppContext from '../../reducer/context';
 
-// Reducer
+// Reducer Constants
 import { ADD_DEPARTURE, ADD_DESTINATION } from '../../reducer/constants';
 
 // Global Components

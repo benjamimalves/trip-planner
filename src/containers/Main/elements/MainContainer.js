@@ -3,7 +3,6 @@ import { COLORS } from '../../../utils/colors';
 
 const MainContainer = styled.div`
   .main-elements {
-    height: 100vh;
     position: relative;
     z-index: 2;
     display: flex;
@@ -20,7 +19,7 @@ const MainContainer = styled.div`
     height: 325px;
     padding: 30px;
     border-radius: 19px 19px 0 0;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background-color: ${COLORS.WHITE};
     display: flex;

@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GoogleApiWrapper, Map, Polyline } from 'google-maps-react';
 
+// UTILS
+import { COLORS } from '../../utils/colors';
+
 // Context API
 import AppContext from '../../reducer/context';
 
@@ -11,38 +14,75 @@ import MapWrapper from './elements/MapWrapper';
 const LoadingContainer = () => <div>Fancy loading container!</div>;
 
 export class MapContainer extends React.Component {
+  state = {
+    bounds: {},
+    paths: []
+  };
+
   componentDidUpdate() {
-    console.log('this.context :: ', this.context);
-    /* ... */
+    const {
+      state: { planner }
+    } = this.context;
+    const { paths } = this.state;
+
+    if (planner !== false && paths.length === 0) {
+      if (planner.length === 0) {
+        this.noRouteForPlanner();
+      } else {
+        this.getCoords(planner);
+      }
+    }
+
+    if (planner === false && paths.length > 0) {
+      this.resetCoords();
+    }
   }
-  // componentDidUpdate(prevProps) {
-  //   const { info } = this.props;
-  //   console.log('componentDidUpdate :: prevProps ', prevProps);
 
-  //   console.log(info.planner);
-  //   console.log(Object.keys(info.destination).length);
+  getCoords = data => {
+    const { google } = this.props;
 
-  //   if (
-  //     !info.planner &&
-  //     Object.keys(info.departure).length !== 0 &&
-  //     Object.keys(info.destination).length !== 0
-  //   ) {
-  //     console.log('RENDER');
-  //   }
-  // }
+    const paths = [];
 
-  getCoords = () => {
-    // const { google } = this.props;
+    // Get the Best ETA VALUE
+    const bestETA = data.reduce(
+      (min, p) =>
+        parseInt(p.leg.duration, 10) < min ? parseInt(p.leg.duration, 10) : min,
+      data[0].leg.duration
+    );
 
-    const coords = [];
-    // const bounds = new google.maps.LatLngBounds();
-    // coords.forEach(c => bounds.extend(c));
+    // Get the Best ETA DATA
+    const getBestETA = data.filter(p => p.leg.duration === bestETA);
 
-    return coords;
+    // Get the paths for the BestETA
+    getBestETA[0].leg.bigSteps.forEach(p => {
+      p.points.forEach(point => {
+        paths.push(point);
+      });
+    });
+
+    const bounds = new google.maps.LatLngBounds();
+    paths.forEach(c => bounds.extend(c));
+
+    this.setState({
+      paths,
+      bounds
+    });
+  };
+
+  noRouteForPlanner = () => {
+    alert('No route for your choice, please choose another departure and destination');
+  };
+
+  resetCoords = () => {
+    this.setState({
+      paths: [],
+      bounds: {}
+    });
   };
 
   render() {
-    const { google, info, dispatch } = this.props;
+    const { google } = this.props;
+    const { bounds, paths } = this.state;
 
     return (
       <MapWrapper>
@@ -54,15 +94,10 @@ export class MapContainer extends React.Component {
           scaleControl={false}
           streetViewControl={false}
           fullscreenControl={false}
-          initialCenter={{ lat: 38.73112599999999, lng: -9.1344806 }}
-          // bounds={bounds}
+          initialCenter={{ lat: 38.7371727, lng: -9.133851 }}
+          bounds={bounds}
         >
-          {/* <Polyline
-            path={this.getCoords}
-            strokeColor="#ff0000"
-            strokeOpacity={0.8}
-            strokeWeight={3}
-          /> */}
+          <Polyline path={paths} strokeColor={COLORS.GREEN} strokeWeight={3} />
         </Map>
       </MapWrapper>
     );
@@ -72,13 +107,11 @@ export class MapContainer extends React.Component {
 MapContainer.contextType = AppContext;
 
 MapContainer.propTypes = {
-  google: PropTypes.oneOfType([PropTypes.object]),
-  info: PropTypes.oneOfType([PropTypes.object])
+  google: PropTypes.oneOfType([PropTypes.object])
 };
 
 MapContainer.defaultProps = {
-  google: false,
-  info: {}
+  google: false
 };
 
 export default GoogleApiWrapper({

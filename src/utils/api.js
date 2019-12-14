@@ -6,6 +6,6 @@ export const ENDPOINTS = {
   GEOCODING: {
     SUGGEST: `${CARRIS_API}Geocoding/suggest/`,
     FROMID: `${CARRIS_API}Geocoding/fromId/`,
-    PLANNER: `${CARRIS_API}Geocoding/Planner/startlat/:startlat/startlon/:startlon/endLat/:endLat/endLon/:endLon/start/:datetime/language/en`
-  }
+  },
+  PLANNER: `${CARRIS_API}Planner/startlat/:startlat/startlon/:startlon/endLat/:endLat/endLon/:endLon/start/:datetime/language/en`
 };
