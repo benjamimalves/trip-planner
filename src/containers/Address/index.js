@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { DatetimePickerTrigger } from 'rc-datetime-picker';
+import { ReactComponent as Location } from '../../assets/location.svg';
+import { ReactComponent as Search } from '../../assets/search.svg';
 import '../../assets/picker.min.css';
 
 // Util
@@ -11,7 +13,11 @@ import { ENDPOINTS } from '../../utils/api';
 import AppContext from '../../reducer/context';
 
 // Reducer Constants
-import { ADD_DEPARTURE, ADD_DESTINATION } from '../../reducer/constants';
+import {
+  ADD_DATETIME,
+  ADD_DEPARTURE,
+  ADD_DESTINATION
+} from '../../reducer/constants';
 
 // Global Components
 import ButtonField from '../../components/ButtonField';
@@ -29,10 +35,16 @@ class Address extends React.PureComponent {
     this.state = {
       suggest: [],
       addressVal: '',
+      watchID: false,
       datetime: moment()
     };
 
     this.abortController = new AbortController();
+  }
+
+  componentDidMount() {
+    const { datetime } = this.state;
+    this.dispatchDateTime(datetime);
   }
 
   loadAddress = async url => {
@@ -57,6 +69,15 @@ class Address extends React.PureComponent {
     }
   };
 
+  dispatchDateTime = val => {
+    const { dispatch } = this.context;
+
+    dispatch({
+      type: ADD_DATETIME,
+      datetime: val
+    });
+  };
+
   getAddressSugestions = e => {
     const val = e.currentTarget.value;
     const REQUESTURL = `${ENDPOINTS.GEOCODING.SUGGEST}${val}`;
@@ -74,7 +95,13 @@ class Address extends React.PureComponent {
       suggest: []
     });
 
-    const REQUESTURL = `${ENDPOINTS.GEOCODING.FROMID}${address.locationId}`;
+    let REQUESTURL;
+    if (address.locationId) {
+      REQUESTURL = `${ENDPOINTS.GEOCODING.FROMID}${address.locationId}`;
+    } else {
+      REQUESTURL = ENDPOINTS.GEOCODING.REVERSE;
+      REQUESTURL.replace(':lat', address.lat).replace(':lng', address.lng);
+    }
 
     fetch(REQUESTURL)
       .then(data => data.json())
@@ -93,10 +120,32 @@ class Address extends React.PureComponent {
       });
   };
 
-  handleChange = momentDate => {
+  getGeoLocation = () => {
+    const watchID = navigator.geolocation.watchPosition(this.showPosition);
+
+    this.setState({
+      watchID
+    });
+  };
+
+  showPosition = position => {
+    const { watchID } = this.state;
+
+    if (position && watchID) {
+      const latLng = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      this.addAddress(latLng);
+      navigator.geolocation.clearWatch(watchID);
+    }
+  };
+
+  handleChangeDateTime = momentDate => {
     this.setState({
       datetime: momentDate
     });
+    this.dispatchDateTime(momentDate);
   };
 
   renderAutoComplete = () => {
@@ -135,17 +184,33 @@ class Address extends React.PureComponent {
           className={className}
           value={addressVal}
         />
+        {id === 'departure' && navigator.geolocation && (
+          <button
+            className="btn-geolocation"
+            type="button"
+            onClick={this.getGeoLocation}
+          >
+            <Location />
+          </button>
+        )}
         {id === 'destination' && (
-          <DatetimePickerTrigger moment={datetime} onChange={this.handleChange}>
-            <InputField
-              id="datepickerVal"
-              className="second-type"
-              type="text"
-              value={datetime.format('YYYY-MM-DD HH:mm')}
-              readOnly
-              // value={address ? `${address.header} - ${address.address}` : ''}
-            />
-          </DatetimePickerTrigger>
+          <>
+            <Search className="icon" />
+            <DatetimePickerTrigger
+              moment={datetime}
+              onChange={this.handleChangeDateTime}
+            >
+              <InputField
+                id="datepickerVal"
+                className="second-type"
+                type="text"
+                value={datetime.format('YYYY-MM-DD HH:mm')}
+                readOnly
+                // value={address ? `${address.header} - ${address.address}` : ''}
+              />
+              <Search className="icon" />
+            </DatetimePickerTrigger>
+          </>
         )}
         {this.renderAutoComplete()}
       </AddressWrapper>

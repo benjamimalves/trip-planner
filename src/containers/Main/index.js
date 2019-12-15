@@ -42,7 +42,7 @@ export class Main extends React.Component {
 
   addPlanner = () => {
     const {
-      state: { departure, destination },
+      state: { departure, destination, datetime },
       dispatch
     } = this.context;
 
@@ -51,7 +51,7 @@ export class Main extends React.Component {
       .replace(':startlon', departure.lng)
       .replace(':endLat', destination.lat)
       .replace(':endLon', destination.lng)
-      .replace(':datetime', '2019-12-15T13:00:00');
+      .replace(':datetime', datetime.format('YYYY-MM-DD[T]HH:mm'));
 
     this.handleView('trip');
 

@@ -16,6 +16,7 @@ function App() {
   const initialState = {
     departure: {},
     destination: {},
+    datetime: false,
     planner: false
   };
 

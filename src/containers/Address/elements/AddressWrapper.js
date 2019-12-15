@@ -4,6 +4,22 @@ import { COLORS } from '../../../utils/colors';
 const AddressWrapper = styled.div`
   position: relative;
 
+  .btn-geolocation {
+    position: absolute;
+    right: 7px;
+    top: 9px;
+    border: none;
+    padding: 3px 6px 3px 8px;
+    border-left: 1px solid ${COLORS.GRAY};
+    cursor: pointer;
+  }
+
+  .icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+
   .address-autocomplete {
     position: absolute;
     width: 100%;
