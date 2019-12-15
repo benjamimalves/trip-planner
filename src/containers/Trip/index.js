@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import timerSVG from '../../assets/timer.svg';
+import { ReactComponent as Timer } from '../../assets/timer.svg';
 import Loading from '../../components/Loading';
+import Error from '../../components/Error';
 import ButtonField from '../../components/ButtonField';
 import H2 from '../../components/H2';
 
@@ -48,13 +49,19 @@ class Trip extends React.Component {
       return <Loading />;
     }
 
+    if (planner.length === 0) {
+      return <Error />;
+    }
+
     const title = `${departure.header} ${departure.address} - ${destination.header} ${destination.address}`;
 
     return (
       <TripWrapper>
         <div>
           <H2>{title}</H2>
-          <time dateTime="2017-02-14T10:30">{timerSVG} 10:30 AM</time>
+          <time dateTime="2017-02-14T10:30">
+            <Timer /> 10:30 AM
+          </time>
         </div>
         <ButtonField>Bookmark trip</ButtonField>
         {this.renderPlan(planner)}

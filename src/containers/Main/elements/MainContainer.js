@@ -28,7 +28,7 @@ const MainContainer = styled.div`
 
     .address-autocomplete {
       top: initial;
-      bottom: 205px;
+      bottom: 265px;
     }
   }
 `;

@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import { DatetimePickerTrigger } from 'rc-datetime-picker';
+import '../../assets/picker.min.css';
 
 // Util
 import { ENDPOINTS } from '../../utils/api';
@@ -24,7 +27,9 @@ class Address extends React.PureComponent {
     super();
 
     this.state = {
-      suggest: []
+      suggest: [],
+      addressVal: '',
+      datetime: moment()
     };
 
     this.abortController = new AbortController();
@@ -53,7 +58,11 @@ class Address extends React.PureComponent {
   };
 
   getAddressSugestions = e => {
-    const REQUESTURL = `${ENDPOINTS.GEOCODING.SUGGEST}${e.currentTarget.value}`;
+    const val = e.currentTarget.value;
+    const REQUESTURL = `${ENDPOINTS.GEOCODING.SUGGEST}${val}`;
+    this.setState({
+      addressVal: val
+    });
     this.loadAddress(REQUESTURL);
   };
 
@@ -70,6 +79,10 @@ class Address extends React.PureComponent {
     fetch(REQUESTURL)
       .then(data => data.json())
       .then(data => {
+        this.setState({
+          addressVal: `${data.header} - ${data.address}`
+        });
+
         dispatch({
           type: id === 'departure' ? ADD_DEPARTURE : ADD_DESTINATION,
           address: data
@@ -78,6 +91,12 @@ class Address extends React.PureComponent {
       .catch(error => {
         console.log('error', error);
       });
+  };
+
+  handleChange = momentDate => {
+    this.setState({
+      datetime: momentDate
+    });
   };
 
   renderAutoComplete = () => {
@@ -105,16 +124,29 @@ class Address extends React.PureComponent {
 
   render() {
     const { id, placeholder, className } = this.props;
+    const { datetime, addressVal } = this.state;
 
     return (
       <AddressWrapper>
         <InputField
           placeholder={placeholder}
           id={id}
-          onKeyUp={this.getAddressSugestions}
+          onChange={this.getAddressSugestions}
           className={className}
-          // value={address ? `${address.header} - ${address.address}` : ''}
+          value={addressVal}
         />
+        {id === 'destination' && (
+          <DatetimePickerTrigger moment={datetime} onChange={this.handleChange}>
+            <InputField
+              id="datepickerVal"
+              className="second-type"
+              type="text"
+              value={datetime.format('YYYY-MM-DD HH:mm')}
+              readOnly
+              // value={address ? `${address.header} - ${address.address}` : ''}
+            />
+          </DatetimePickerTrigger>
+        )}
         {this.renderAutoComplete()}
       </AddressWrapper>
     );

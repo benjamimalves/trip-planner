@@ -7,6 +7,8 @@ const AddressWrapper = styled.div`
   .address-autocomplete {
     position: absolute;
     width: 100%;
+    max-height: 280px;
+    overflow-y: scroll;
     top: 51px;
     left: 0;
     background-color: ${COLORS.WHITE};
@@ -23,6 +25,77 @@ const AddressWrapper = styled.div`
       &:last-child {
         border-bottom: none;
       }
+    }
+  }
+
+  .datetime-trigger {
+    margin-top: 20px;
+  }
+
+  .datetime-picker {
+    color: ${COLORS.BLACK};
+
+    .time {
+      .sliders {
+        .slider {
+          .handle {
+            &:active,
+            &:focus {
+              background-color: ${COLORS.GREEN};
+              border-color: ${COLORS.GREEN};
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+    .calendar {
+      .calendar-nav {
+        button {
+          &.next-month {
+            &:after {
+              content: '>';
+              display: block;
+            }
+          }
+          &.prev-month {
+            &:after {
+              content: '<';
+              display: block;
+            }
+          }
+        }
+      }
+      table {
+        thead {
+          th {
+            color: ${COLORS.GREEN};
+          }
+        }
+        tbody {
+          tr {
+            td {
+              &.now {
+                color: ${COLORS.GREEN};
+              }
+              &.selected {
+                background-color: ${COLORS.GREEN};
+                color: ${COLORS.WHITE};
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .datetime-picker-popup {
+    margin-top: -360px;
+
+    &:before {
+      top: initial;
+      transform: rotate(133deg);
+      bottom: -6px;
     }
   }
 `;

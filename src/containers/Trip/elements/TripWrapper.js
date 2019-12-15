@@ -17,8 +17,13 @@ const TripWrapper = styled.div`
   }
 
   time {
-    flex: 0 0 50px;
-    text-align: end;
+    flex: 0 0 65px;
+    align-items: center;
+    display: flex;
+
+    svg {
+      margin-right: 5px;
+    }
   }
 
   button {
@@ -68,7 +73,7 @@ const TripWrapper = styled.div`
       display: none;
     }
 
-    &:nth-last-child(2):after {
+    &.is-inner-step:after {
       opacity: 0.25;
     }
   }

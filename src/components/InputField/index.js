@@ -6,15 +6,15 @@ import Input from './elements/Input';
 import Label from './elements/Label';
 
 function InputField(props) {
-  const { placeholder, id, onKeyUp, className, value } = props;
+  const { placeholder, id, onChange, className, value } = props;
 
   return (
     <Label htmlFor={id} className={className}>
       <Input
         id={id}
         placeholder={placeholder}
-        onKeyUp={onKeyUp}
-        // value={value}
+        onChange={onChange}
+        value={value}
       />
     </Label>
   );
@@ -25,7 +25,7 @@ InputField.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string,
   className: PropTypes.string,
-  onKeyUp: PropTypes.func
+  onChange: PropTypes.func
 };
 
 InputField.defaultProps = {
@@ -33,7 +33,7 @@ InputField.defaultProps = {
   placeholder: '',
   value: '',
   className: '',
-  onKeyUp: false
+  onChange: () => {}
 };
 
 export default InputField;

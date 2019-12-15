@@ -4,6 +4,10 @@ import { GoogleApiWrapper, Map, Polyline } from 'google-maps-react';
 
 // UTILS
 import { COLORS } from '../../utils/colors';
+import { GOOGLE_MAPS_KEY } from '../../utils/config';
+
+// Components
+import Loading from '../../components/Loading';
 
 // Context API
 import AppContext from '../../reducer/context';
@@ -11,7 +15,7 @@ import AppContext from '../../reducer/context';
 // Styled Elements
 import MapWrapper from './elements/MapWrapper';
 
-const LoadingContainer = () => <div>Fancy loading container!</div>;
+const LoadingContainer = () => <Loading />;
 
 export class MapContainer extends React.Component {
   state = {
@@ -25,12 +29,12 @@ export class MapContainer extends React.Component {
     } = this.context;
     const { paths } = this.state;
 
-    if (planner !== false && paths.length === 0) {
-      if (planner !== undefined && planner.length === 0) {
-        this.noRouteForPlanner();
-      } else {
-        this.getCoords(planner);
-      }
+    if (
+      planner !== false &&
+      Object.keys(planner).length !== 0 &&
+      paths.length === 0
+    ) {
+      this.getCoords(planner);
     }
 
     if (planner === false && paths.length > 0) {
@@ -58,8 +62,171 @@ export class MapContainer extends React.Component {
     });
   };
 
+  getStyle = () => {
+    return [
+      {
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#f5f5f5'
+          }
+        ]
+      },
+      {
+        elementType: 'labels.icon',
+        stylers: [
+          {
+            visibility: 'off'
+          }
+        ]
+      },
+      {
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#616161'
+          }
+        ]
+      },
+      {
+        elementType: 'labels.text.stroke',
+        stylers: [
+          {
+            color: '#f5f5f5'
+          }
+        ]
+      },
+      {
+        featureType: 'administrative.land_parcel',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#bdbdbd'
+          }
+        ]
+      },
+      {
+        featureType: 'poi',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#eeeeee'
+          }
+        ]
+      },
+      {
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#757575'
+          }
+        ]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#e5e5e5'
+          }
+        ]
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#9e9e9e'
+          }
+        ]
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#ffffff'
+          }
+        ]
+      },
+      {
+        featureType: 'road.arterial',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#757575'
+          }
+        ]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#dadada'
+          }
+        ]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#616161'
+          }
+        ]
+      },
+      {
+        featureType: 'road.local',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#9e9e9e'
+          }
+        ]
+      },
+      {
+        featureType: 'transit.line',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#e5e5e5'
+          }
+        ]
+      },
+      {
+        featureType: 'transit.station',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#eeeeee'
+          }
+        ]
+      },
+      {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [
+          {
+            color: '#c9c9c9'
+          }
+        ]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [
+          {
+            color: '#9e9e9e'
+          }
+        ]
+      }
+    ];
+  };
+
   noRouteForPlanner = () => {
-    alert('No route for your choice, please choose another departure and destination');
+    // TODO: Add dispatch for planner error
   };
 
   resetCoords = () => {
@@ -84,6 +251,7 @@ export class MapContainer extends React.Component {
           streetViewControl={false}
           fullscreenControl={false}
           initialCenter={{ lat: 38.7371727, lng: -9.133851 }}
+          styles={this.getStyle()}
           bounds={bounds}
         >
           <Polyline path={paths} strokeColor={COLORS.GREEN} strokeWeight={3} />
@@ -104,6 +272,6 @@ MapContainer.defaultProps = {
 };
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyBqz4bTufuL-mI8fuc3zfier_PpbVTz9BI',
+  apiKey: GOOGLE_MAPS_KEY,
   LoadingContainer
 })(MapContainer);
