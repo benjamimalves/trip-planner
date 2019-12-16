@@ -16,6 +16,11 @@ const Input = styled.input`
     outline: none;
   }
 
+  &:read-only {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
   &::placeholder {
     color: ${COLORS.GRAY};
   }

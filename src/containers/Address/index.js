@@ -174,6 +174,9 @@ class Address extends React.PureComponent {
   render() {
     const { id, placeholder, className } = this.props;
     const { datetime, addressVal } = this.state;
+    const {
+      state: { planner }
+    } = this.context;
 
     return (
       <AddressWrapper>
@@ -183,6 +186,7 @@ class Address extends React.PureComponent {
           onChange={this.getAddressSugestions}
           className={className}
           value={addressVal}
+          readOnly={planner !== false}
         />
         {id === 'departure' && navigator.geolocation && (
           <button
