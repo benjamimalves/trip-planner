@@ -1,6 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-export const CORS_ANYWHERE = 'https://benjamimalves.com/cors-anywhere.php?url=';
-export const CARRIS_API = `${CORS_ANYWHERE}https://carris.tecmic.com/api/v2.6/`;
+export const CARRIS_API = `/api?url=/v2.6/`;
 
 export const ENDPOINTS = {
   GEOCODING: {
