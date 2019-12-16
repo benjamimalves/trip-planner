@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="30px" viewBox="0 0 22 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Trip-screen" transform="translate(-57.000000, -174.000000)">
+
+            <g id="room-24px" transform="translate(22.000000, 171.000000)">
+                <path d="M46,3 C40.195,3 35.5,7.695 35.5,13.5 C35.5,21.375 46,33 46,33 C46,33 56.5,21.375 56.5,13.5 C56.5,7.695 51.805,3 46,3 Z M46,17.25 C43.93,17.25 42.25,15.57 42.25,13.5 C42.25,11.43 43.93,9.75 46,9.75 C48.07,9.75 49.75,11.43 49.75,13.5 C49.75,15.57 48.07,17.25 46,17.25 Z" id="Shape" fill="#3CAA36" fill-rule="nonzero"></path>
+                <polygon id="Path" points="0 0 36 0 36 36 0 36"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

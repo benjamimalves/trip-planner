@@ -17,7 +17,7 @@ const TripWrapper = styled.div`
   }
 
   time {
-    flex: 0 0 65px;
+    flex: 0 0 70px;
     align-items: center;
     display: flex;
 

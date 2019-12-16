@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GoogleApiWrapper, Map, Polyline } from 'google-maps-react';
+import {
+  GoogleApiWrapper,
+  Map,
+  InfoWindow,
+  Marker,
+  Polyline
+} from 'google-maps-react';
 
 // UTILS
 import { COLORS } from '../../utils/colors';
@@ -20,7 +26,10 @@ const LoadingContainer = () => <Loading />;
 export class MapContainer extends React.Component {
   state = {
     bounds: {},
-    paths: []
+    paths: [],
+    showingInfoWindow: false,
+    activeMarker: {},
+    activeMarkerInfo: {}
   };
 
   componentDidUpdate() {
@@ -225,8 +234,56 @@ export class MapContainer extends React.Component {
     ];
   };
 
+  onMarkerClick = (props, marker, info) => {
+    this.setState({
+      activeMarker: marker,
+      showingInfoWindow: true,
+      activeMarkerInfo: {
+        ...info,
+        distance: props.planner.leg.distance,
+        duration: props.planner.leg.duration
+      }
+    });
+  };
+
+  onInfoWindowClose = () => {
+    this.setState({
+      showingInfoWindow: false,
+      activeMarker: {},
+      activeMarkerInfo: {}
+    });
+  };
+
   noRouteForPlanner = () => {
     // TODO: Add dispatch for planner error
+  };
+
+  renderMarker = (planner, paths, info, type) => {
+    const { google } = this.props;
+
+    if (planner && paths.length > 0) {
+      const lat =
+        type === 'destination' ? paths[paths.length - 1].lat : paths[0].lat;
+      const lng =
+        type === 'destination' ? paths[paths.length - 1].lng : paths[0].lng;
+      return (
+        <Marker
+          onClick={(props, marker) => this.onMarkerClick(props, marker, info)}
+          icon={{
+            url:
+              type === 'destination' ? 'marker-destination.svg' : 'marker.svg',
+            anchor: new google.maps.Point(13, 13)
+          }}
+          planner={planner}
+          position={{
+            lat,
+            lng
+          }}
+        />
+      );
+    }
+
+    return null;
   };
 
   resetCoords = () => {
@@ -238,7 +295,16 @@ export class MapContainer extends React.Component {
 
   render() {
     const { google } = this.props;
-    const { bounds, paths } = this.state;
+    const {
+      bounds,
+      paths,
+      activeMarker,
+      showingInfoWindow,
+      activeMarkerInfo
+    } = this.state;
+    const {
+      state: { planner, destination, departure }
+    } = this.context;
 
     return (
       <MapWrapper>
@@ -254,6 +320,34 @@ export class MapContainer extends React.Component {
           styles={this.getStyle()}
           bounds={bounds}
         >
+          {this.renderMarker(planner, paths, departure, 'departure')}
+          {this.renderMarker(planner, paths, destination, 'destination')}
+          {planner && (
+            <InfoWindow
+              onClose={this.onInfoWindowClose}
+              marker={activeMarker}
+              visible={showingInfoWindow}
+            >
+              <div>
+                <h2>
+                  {activeMarkerInfo.header}
+                  <p>
+                    <small>{activeMarkerInfo.address}</small>
+                  </p>
+                </h2>
+                <ul>
+                  <li>
+                    <b>Distance: </b>
+                    {activeMarkerInfo.distance}
+                  </li>
+                  <li>
+                    <b>Duration: </b>
+                    {activeMarkerInfo.duration}
+                  </li>
+                </ul>
+              </div>
+            </InfoWindow>
+          )}
           <Polyline path={paths} strokeColor={COLORS.GREEN} strokeWeight={3} />
         </Map>
       </MapWrapper>

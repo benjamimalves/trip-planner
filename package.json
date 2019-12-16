@@ -26,13 +26,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-prod": "\"yarn server\"",
+    "start-prod": "npm run server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn start\""
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start\""
 
   },
   "eslintConfig": {

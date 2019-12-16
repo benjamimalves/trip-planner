@@ -42,7 +42,7 @@ class Trip extends React.Component {
 
   render() {
     const {
-      state: { planner, departure, destination }
+      state: { planner, departure, destination, datetime }
     } = this.context;
 
     if (!planner) {
@@ -59,8 +59,8 @@ class Trip extends React.Component {
       <TripWrapper>
         <div>
           <H2>{title}</H2>
-          <time dateTime="2017-02-14T10:30">
-            <Timer /> 10:30 AM
+          <time dateTime={datetime.format('YYYY-MM-DD HH:mm')}>
+            <Timer /> {datetime.format('YYYY-MM-DD HH:mm')}
           </time>
         </div>
         <ButtonField>Bookmark trip</ButtonField>
