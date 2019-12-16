@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 // Components
 import { ReactComponent as Timer } from '../../assets/timer.svg';
+import { ReactComponent as BookmarkSVG } from '../../assets/bookmark-small.svg';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
+import InputField from '../../components/InputField';
 import ButtonField from '../../components/ButtonField';
 import H2 from '../../components/H2';
 
@@ -15,6 +17,51 @@ import AppContext from '../../reducer/context';
 import TripWrapper from './elements/TripWrapper';
 
 class Trip extends React.Component {
+  state = {
+    showBookmarkModal: false,
+    bookmarkVal: ''
+  };
+
+  handleChangeBookmarkVal = e => {
+    this.setState({
+      bookmarkVal: e.currentTarget.value
+    });
+  };
+
+  handleShowBookmarkModal = () => {
+    const { showBookmarkModal } = this.state;
+
+    this.setState({
+      showBookmarkModal: !showBookmarkModal
+    });
+  };
+
+  submitBookmarkTrip = e => {
+    e.preventDefault();
+
+    const { bookmarkVal } = this.state;
+    const {
+      state: { departure, destination }
+    } = this.context;
+
+    const bookmarks = localStorage.getItem('bookmarks');
+    const currentBookmark = {
+      title: bookmarkVal,
+      departure,
+      destination
+    };
+    let setBookmarks;
+
+    if (bookmarks === null) {
+      setBookmarks = [currentBookmark];
+    } else {
+      setBookmarks = JSON.parse(bookmarks);
+      setBookmarks.push(currentBookmark);
+    }
+
+    localStorage.setItem('bookmarks', JSON.stringify(setBookmarks));
+  };
+
   renderItems = items => {
     const steps = [];
     items.leg.bigSteps.forEach(s => {
@@ -40,7 +87,33 @@ class Trip extends React.Component {
     return <ul>{content}</ul>;
   };
 
+  renderBookmarkModal = () => {
+    const { bookmarkVal } = this.state;
+    return (
+      <form
+        name="bookmark-form"
+        id="bookmark-form"
+        onSubmit={this.submitBookmarkTrip}
+      >
+        <InputField
+          id="bookmark-trip"
+          name="bookmark-trip"
+          placeholder="Bookmark Name"
+          className="second-type"
+          value={bookmarkVal}
+          onChange={this.handleChangeBookmarkVal}
+        />
+        <input
+          type="submit"
+          value="Save trip"
+          onClick={this.submitBookmarkTrip}
+        />
+      </form>
+    );
+  };
+
   render() {
+    const { showBookmarkModal } = this.state;
     const {
       state: { planner, departure, destination, datetime }
     } = this.context;
@@ -63,8 +136,11 @@ class Trip extends React.Component {
             <Timer /> {datetime.format('YYYY-MM-DD HH:mm')}
           </time>
         </div>
-        <ButtonField>Bookmark trip</ButtonField>
+        <ButtonField onClick={this.handleShowBookmarkModal}>
+          <BookmarkSVG /> Bookmark trip
+        </ButtonField>
         {this.renderPlan(planner)}
+        {showBookmarkModal && this.renderBookmarkModal()}
       </TripWrapper>
     );
   }

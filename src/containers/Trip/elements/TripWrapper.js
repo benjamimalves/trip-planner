@@ -29,10 +29,17 @@ const TripWrapper = styled.div`
   button {
     padding: 0;
     border: none;
+    align-content: center;
+    display: flex;
+    margin: 5px 0;
+
+    svg {
+      margin-right: 5px;
+    }
   }
 
   ul {
-    height: 160px;
+    height: 150px;
     margin-top: 20px;
     overflow-y: scroll;
   }
@@ -76,6 +83,19 @@ const TripWrapper = styled.div`
     &.is-inner-step:after {
       opacity: 0.25;
     }
+  }
+
+  form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: ${COLORS.WHITE};
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

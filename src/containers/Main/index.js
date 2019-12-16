@@ -14,6 +14,7 @@ import { ADD_PLANNER } from '../../reducer/constants';
 // Containers
 import Address from '../Address';
 import MapContainer from '../MapContainer';
+import Bookmarks from '../Bookmarks';
 import Trip from '../Trip';
 
 // Styled Elements
@@ -83,11 +84,14 @@ export class Main extends React.Component {
           <Address placeholder="Departure from.." id="departure" />
           <div className="main-elements-widget">
             {view === 'address' && (
-              <Address
-                placeholder="Final destination.."
-                id="destination"
-                className="second-type"
-              />
+              <>
+                <Address
+                  placeholder="Final destination.."
+                  id="destination"
+                  className="second-type"
+                />
+                <Bookmarks />
+              </>
             )}
             {view === 'trip' && <Trip />}
           </div>

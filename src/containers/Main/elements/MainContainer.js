@@ -23,12 +23,13 @@ const MainContainer = styled.div`
     bottom: 0;
     background-color: ${COLORS.WHITE};
     display: flex;
-    justify-content: center;
+    justify-content: start;
+    flex-direction: column;
     box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.4);
 
     .address-autocomplete {
       top: initial;
-      bottom: 265px;
+      bottom: 112px;
     }
   }
 `;

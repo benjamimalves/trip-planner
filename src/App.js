@@ -17,7 +17,8 @@ function App() {
     departure: {},
     destination: {},
     datetime: false,
-    planner: false
+    planner: false,
+    view: 'address'
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="12px" viewBox="0 0 10 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <title>bookmark_border-24px</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M30,97 L347,97 C363.568542,97 377,110.431458 377,127 L377,421 L377,421 L0,421 L0,127 C-2.02906125e-15,110.431458 13.4314575,97 30,97 Z" id="path-1"></path>
+        <filter x="-8.6%" y="-8.5%" width="117.2%" height="120.1%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="5" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.143520542 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Trip-screen" transform="translate(-9.000000, -540.000000)">
+            <g id="Group-2" transform="translate(0.000000, 343.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Rectangle-Copy-10">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+            </g>
+            <g id="bookmark_border-24px" transform="translate(9.000000, 540.000000)" fill="#B2B2B2" fill-rule="nonzero">
+                <path d="M8.33333333,0 L1.66666667,0 C0.933333333,0 0.34,0.6 0.34,1.33333333 L0.333333333,12 L5,10 L9.66666667,12 L9.66666667,1.33333333 C9.66666667,0.6 9.06666667,0 8.33333333,0 Z M8.33333333,10 L5,8.54666667 L1.66666667,10 L1.66666667,1.33333333 L8.33333333,1.33333333 L8.33333333,10 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
