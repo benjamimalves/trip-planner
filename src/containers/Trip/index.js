@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // Components
 import { ReactComponent as Timer } from '../../assets/timer.svg';
 import { ReactComponent as BookmarkSVG } from '../../assets/bookmark-small.svg';
+import { ReactComponent as CloseSVG } from '../../assets/close.svg';
 import Loading from '../../components/Loading';
 import Error from '../../components/Error';
 import InputField from '../../components/InputField';
@@ -95,6 +96,13 @@ class Trip extends React.Component {
         id="bookmark-form"
         onSubmit={this.submitBookmarkTrip}
       >
+        <button
+          type="button"
+          className="btn-close"
+          onClick={this.handleShowBookmarkModal}
+        >
+          <CloseSVG />
+        </button>
         <InputField
           id="bookmark-trip"
           name="bookmark-trip"
@@ -105,8 +113,10 @@ class Trip extends React.Component {
         />
         <input
           type="submit"
+          className="btn-submit"
           value="Save trip"
           onClick={this.submitBookmarkTrip}
+          disabled={bookmarkVal.length === 0}
         />
       </form>
     );

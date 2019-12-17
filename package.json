@@ -28,11 +28,9 @@
     "start": "react-scripts start",
     "start-prod": "npm run server",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start\"",
     "lint": "eslint .",
-    "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start\""
+    "server": "nodemon server.js"
 
   },
   "eslintConfig": {

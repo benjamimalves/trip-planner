@@ -16,7 +16,7 @@ import AppContext from '../../reducer/context';
 import {
   ADD_DATETIME,
   ADD_DEPARTURE,
-  ADD_DESTINATION,
+  ADD_DESTINATION
 } from '../../reducer/constants';
 
 // Styled Elements
@@ -38,24 +38,6 @@ class Bookmarks extends React.Component {
       type: ADD_DESTINATION,
       address: bookmark.destination
     });
-    // const REQUESTURL = `${ENDPOINTS.PLANNER}`
-    //   .replace(':startlat', bookmark.departure.lat)
-    //   .replace(':startlon', bookmark.departure.lng)
-    //   .replace(':endLat', bookmark.destination.lat)
-    //   .replace(':endLon', bookmark.destination.lng)
-    //   .replace(':datetime', moment());
-
-    // fetch(REQUESTURL)
-    //   .then(data => data.json())
-    //   .then(data => {
-    //     dispatch({
-    //       type: ADD_PLANNER,
-    //       planner: data
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.log('error', error);
-    //   });
   };
 
   renderBookmark = bookmarks => {
@@ -75,7 +57,7 @@ class Bookmarks extends React.Component {
 
   renderBookmarks = () => {
     const getBookmarks = localStorage.getItem('bookmarks');
-    let bookmarks;
+    let bookmarks = [];
 
     if (getBookmarks !== null) {
       bookmarks = JSON.parse(getBookmarks);

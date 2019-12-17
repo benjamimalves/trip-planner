@@ -36,6 +36,37 @@ const TripWrapper = styled.div`
     svg {
       margin-right: 5px;
     }
+
+    &.btn-close {
+      transform: rotate(135deg);
+      transform-origin: center;
+      margin: 0;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+
+      svg {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .btn-submit {
+    font-size: 1rem;
+    border-radius: 19px;
+    width: 19.688rem;
+    height: 2.875rem;
+    padding: 0 38px;
+    background: ${COLORS.GREEN};
+    color: ${COLORS.WHITE};
+    margin-top: 15px;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
   }
 
   ul {

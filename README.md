@@ -5,7 +5,11 @@ This project is a challenge to TB.LX for Senior FrontEnd Developer
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn`
+
+To install the dependencies
+
+### `yarn dev`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -17,3 +21,16 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
+
+### `yarn start-prod`
+
+Runs the app in production mode.<br />
+Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
+
+### `docker build . -t trip-planner`
+
+Create the image docker
+
+### `docker run trip-planner`
+
+To run the app inside docker
