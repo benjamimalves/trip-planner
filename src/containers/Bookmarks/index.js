@@ -1,9 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
-
-// Util
-import { ENDPOINTS } from '../../utils/api';
 
 // Components
 import { ReactComponent as BookmarkSVG } from '../../assets/bookmark-big.svg';

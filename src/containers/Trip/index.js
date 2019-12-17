@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // Components
 import { ReactComponent as Timer } from '../../assets/timer.svg';
