@@ -18,6 +18,12 @@ const BookmarksWrapper = styled.div`
     margin-top: 5px;
   }
 
+  p {
+    color: ${COLORS.GRAY};
+    font-size: 0.813rem;
+    margin-top: 15px;
+  }
+
   button {
     border: none;
     border-bottom: 1px solid ${COLORS.GRAY};

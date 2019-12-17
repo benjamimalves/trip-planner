@@ -61,6 +61,11 @@ class Trip extends React.Component {
     }
 
     localStorage.setItem('bookmarks', JSON.stringify(setBookmarks));
+
+    this.handleShowBookmarkModal();
+
+    // eslint-disable-next-line no-alert
+    alert('Bookmark saved'); // TODO: Add to create a Alert component on the future for this ugly alert
   };
 
   renderItems = items => {

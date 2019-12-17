@@ -61,11 +61,11 @@ class Bookmarks extends React.Component {
 
     if (getBookmarks !== null) {
       bookmarks = JSON.parse(getBookmarks);
+      const content = this.renderBookmark(bookmarks);
+      return <ul>{content}</ul>;
     }
 
-    const content = this.renderBookmark(bookmarks);
-
-    return <ul>{content}</ul>;
+    return <p>No bookmarks yet</p>;
   };
 
   render() {
