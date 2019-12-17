@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-prod": "npm run server",
+    "start-prod": "NODE_ENV=production npm run server",
     "build": "react-scripts build",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start\"",
     "lint": "eslint .",
@@ -49,6 +49,7 @@
       "last 1 safari version"
     ]
   },
+  "main": "server.js",
   "devDependencies": {
     "concurrently": "^4.0.1",
     "eslint-config-airbnb": "^18.0.1",
