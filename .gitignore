@@ -4,4 +4,7 @@ stats.json
 webpack-stats.json
 .DS_Store
 npm-debug.log
+package-lock.json
 yarn.lock
+yarn-error.log
+Procfile
