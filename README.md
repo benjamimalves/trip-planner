@@ -31,6 +31,8 @@ Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
 Create the image docker
 
-### `docker run -p 5001:5000 trip-planner`
+### `docker run --name=trip_planner -p 5001:5000 trip_planner`
 
 To run the app inside docker
+Open [http://localhost:5001](http://localhost:5001) to view it in the browser.
+
