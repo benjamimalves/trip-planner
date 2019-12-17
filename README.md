@@ -1,5 +1,5 @@
 # trip-planner
-This project is a challenge to TB.LX for Senior FrontEnd Developer
+Plan a trip using the Carris API
 
 ## Available Scripts
 
