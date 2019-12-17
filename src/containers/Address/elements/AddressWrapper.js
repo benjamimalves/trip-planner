@@ -14,6 +14,20 @@ const AddressWrapper = styled.div`
     cursor: pointer;
   }
 
+  .btn-back {
+    font-size: 1rem;
+    border-radius: 19px;
+    height: 2.875rem;
+    padding: 0 18px;
+    border: none;
+    box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.4);
+    color: ${COLORS.GRAY};
+    position: absolute;
+    right: -99px;
+    top: 0;
+    cursor: pointer;
+  }
+
   .icon {
     position: absolute;
     top: 15px;

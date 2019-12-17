@@ -16,7 +16,10 @@ const reducer = (state, action) => {
     case ADD_DESTINATION:
       return { ...state, destination: action.address, planner: false };
     case ADD_PLANNER:
-      return { ...state, planner: getBestETA(action.planner) };
+      // eslint-disable-next-line no-case-declarations
+      const setPlanner =
+        action.planner === false ? false : getBestETA(action.planner);
+      return { ...state, planner: setPlanner };
     default:
       throw new Error();
   }

@@ -39,6 +39,15 @@ export class Main extends React.Component {
     ) {
       this.addPlanner();
     }
+
+    if (
+      !planner &&
+      Object.keys(departure).length === 0 &&
+      Object.keys(destination).length === 0 &&
+      view === 'trip'
+    ) {
+      this.handleView('address');
+    }
   }
 
   addPlanner = () => {

@@ -16,7 +16,8 @@ import AppContext from '../../reducer/context';
 import {
   ADD_DATETIME,
   ADD_DEPARTURE,
-  ADD_DESTINATION
+  ADD_DESTINATION,
+  ADD_PLANNER
 } from '../../reducer/constants';
 
 // Global Components
@@ -148,6 +149,25 @@ class Address extends React.PureComponent {
     this.dispatchDateTime(momentDate);
   };
 
+  handleGoBack = () => {
+    const { dispatch } = this.context;
+
+    this.dispatchDateTime(false);
+
+    dispatch({
+      type: ADD_DEPARTURE,
+      address: {}
+    });
+    dispatch({
+      type: ADD_DESTINATION,
+      address: {}
+    });
+    dispatch({
+      type: ADD_PLANNER,
+      planner: false
+    });
+  };
+
   renderAutoComplete = () => {
     const { suggest } = this.state;
     const { id } = this.props;
@@ -188,6 +208,15 @@ class Address extends React.PureComponent {
           value={addressVal}
           readOnly={planner !== false}
         />
+        {planner !== false && (
+          <button
+            className="btn-back"
+            type="button"
+            onClick={this.handleGoBack}
+          >
+            {`< Back`}
+          </button>
+        )}
         {id === 'departure' && navigator.geolocation && (
           <button
             className="btn-geolocation"

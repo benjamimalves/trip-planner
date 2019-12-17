@@ -46,9 +46,6 @@ export class MapContainer extends React.Component {
       this.getCoords(planner);
     }
 
-    if (planner === false && paths.length > 0) {
-      this.resetCoords();
-    }
   }
 
   getCoords = data => {
@@ -284,13 +281,6 @@ export class MapContainer extends React.Component {
     }
 
     return null;
-  };
-
-  resetCoords = () => {
-    this.setState({
-      paths: [],
-      bounds: {}
-    });
   };
 
   render() {
